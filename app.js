@@ -1,47 +1,18 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
 
-/**
- *
- *<div>
- 
-     <div>
-      <h1></h1>
-     </div>
- </div>
- *
- *
- */
+//JSX - transpiled before it reaches the JS engine(Parcel , Babel)
+//React.createElement->React Element(JS obj)->HTML Element(renderer)
+const Title = () => <h1 className="head">Hello from Areesha</h1>;
 
-/**case 2 :siblings //create array for children
- *
- *<div>
- 
-     <div>
-      <h1></h1>
-      <h1></h1>   
-     </div>
- </div>
- *
- *
- */
+console.log(Title);
 
-const parent = React.createElement(
-  "div",
-  { id: "parent" },
-  React.createElement("div", { id: "child" }, [
-    React.createElement("h1", {}, "hello from Areesha"),
-    React.createElement("h2", {}, "I am second tag"),
-  ])
+const HeadingComponent = () => (
+  <div>
+    <Title />
+    <h1>Hello React </h1>;
+  </div>
 );
 
-// const heading = React.createElement(
-//   "h1",
-//   { id: "heading", xyz: "abc" },
-//   "Hello World"
-// );
-
-console.log(parent);
 const root = ReactDOM.createRoot(document.getElementById("root"));
-
-root.render(parent);
+root.render(<HeadingComponent />);
