@@ -19,3 +19,25 @@
 - HTTPS
 - tree shaking - remove unused code for you
 - Different build for dev and prod
+
+/_
+//Header
+--Logo
+-Nav Items
+//Body
+-Search bar
+-Card Container
+-Card
+-Img
+-Name of Res,Star Rating,cusine
+//Footer
+-copyright
+-links
+-contact
+_/
+
+# React Hooks
+
+(Normal Js utility functions)
+-useState(); //superpowerful react variable
+-useEffect();
