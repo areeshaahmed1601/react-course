@@ -41,3 +41,8 @@ _/
 (Normal Js utility functions)
 -useState(); //superpowerful react variable
 -useEffect();
+
+# 2 types of Routing
+
+- client side
+- server side
