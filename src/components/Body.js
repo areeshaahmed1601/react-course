@@ -1,13 +1,17 @@
-import RestaurantCard from "./RestaurantCard";
+import RestaurantCard, { withPromotedLabel } from "./RestaurantCard";
 import Shimmer from "./Shimmer";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import { Link } from "react-router-dom";
 import useOnlineStatus from "../utils/useOnlinestatus";
+import RestaurantCard from "./RestaurantCard";
+import UserContext from "../utils/UserContext";
 
 const Body = () => {
   const [listOfRestaurants, setListOfRestaurants] = useState([]);
   const [searchText, setSearchText] = useState("");
   const [filterRestaurant, setFilteredRestaurant] = useState([]);
+
+  const RestaurantCardPromoted = withPromotedLabel(RestaurantCard);
 
   useEffect(() => {
     fetchData();
@@ -28,11 +32,14 @@ const Body = () => {
     );
   };
 
+  console.log("Restaurant", listOfRestaurants);
   const onlineStatus = useOnlineStatus();
 
   if (onlineStatus === false) {
     return <h1>Looks like you are offline please check internet</h1>;
   }
+
+  const { setUserName, loggedInUser } = useContext(UserContext);
 
   return listOfRestaurants.length === 0 ? (
     <Shimmer />
@@ -73,17 +80,36 @@ const Body = () => {
             Top Rated Restaurants
           </button>
         </div>
+        <div className="search m-4 p-4 flex items-center">
+          <label>UserName: </label>
+          <input
+            className="border border-black p-2"
+            onChange={(e) => setUserName(e.target.value)}
+            value={loggedInUser}
+          />
+        </div>
       </div>
       <div className="flex flex-wrap">
-        {filterRestaurant.map((restaurant) => (
-          <Link
-            to={"/restaurant/" + restaurant?.info?.id}
-            key={restaurant?.info.id}
-          >
-            {/*if restaurant is promoted than add promoted label to it */}
-            <RestaurantCard resData={restaurant} />
-          </Link>
-        ))}
+        {listOfRestaurants.map((restaurant) => {
+          console.log(restaurant); // Check the restaurant object structure
+
+          return (
+            <Link
+              key={restaurant?.info?.id}
+              to={
+                restaurant?.info?.id
+                  ? `/restaurant/${restaurant?.info?.id}`
+                  : "#"
+              }
+            >
+              {restaurant.info.isOpen ? (
+                <RestaurantCardPromoted resData={restaurant} />
+              ) : (
+                <RestaurantCard resData={restaurant} />
+              )}
+            </Link>
+          );
+        })}
       </div>
     </div>
   );
