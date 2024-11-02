@@ -3,6 +3,7 @@ import { useState, useEffect, useContext } from "react";
 import { Link } from "react-router-dom";
 import useOnlineStatus from "../utils/useOnlinestatus";
 import UserContext from "../utils/UserContext";
+import { useSelector } from "react-redux";
 
 const Header = () => {
   const [btnName, setBtnName] = useState("Login");
@@ -12,6 +13,12 @@ const Header = () => {
   const { loggedInUser } = useContext(UserContext);
 
   console.log("Header called");
+
+  //subscribing to the store using a Selector
+
+  const cartItems = useSelector((store) => store.cart.items);
+
+  console.log("cart Items", cartItems);
 
   useEffect(() => {
     console.log("UseEffect Called");
@@ -36,8 +43,8 @@ const Header = () => {
           <li className="px-4">
             <Link to="/grocery">Grocery</Link>
           </li>
-          <li className="px-4">
-            <Link to="/cart">Cart</Link>
+          <li className="px-4 font-bold text-xl">
+            <Link to="/cart">Cart- {cartItems.length} items</Link>
           </li>
           <button
             className="login8"

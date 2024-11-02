@@ -46,3 +46,12 @@ _/
 
 - client side
 - server side
+
+# Redux Toolkit
+
+- install @reduxjs/toolkit and react-redux
+- Build our store
+- connect our store to our app
+- slice (cartSlice)
+- dispatch(action)
+- selector
